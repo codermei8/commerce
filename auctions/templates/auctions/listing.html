@@ -32,6 +32,15 @@
         <li>Listed by: {{ listing.owner}}</li>
         <li>Category: {{ listing.category }}</li>
     </ul>
+
+    <div class="row mx-3">
+        <h2>Comments</h2>
+        {% if user.is_authenticated %} 
+            <form action="{% url 'addComment' id=listing.id %}" method="POST">
+                <input type="text" name="newComment" placeholder="Coment here...">
+            </form>
+        {% endif %}
+    </div>
 {% endblock %}
 
 

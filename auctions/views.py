@@ -122,3 +122,14 @@ def displayWatchlist(request):
     currentUser = request.user
     listings = currentUser.listingWatchlist.all()
     return render(request, "auctions/watchlist.html")
+
+def addComment(request):
+    currentUser = request.user
+    listing = Listing.objects.get(pk=id)
+    message = request.POST["newComment"]
+
+    newComment = Comment(
+        author = currentUser,
+        listing = listing,
+        message = message
+    )
