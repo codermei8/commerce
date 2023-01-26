@@ -1,29 +1,18 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
-    <form action="{% url 'filter' %}" method="POST">
-        {% csrf_token %} 
-        <select name="category">
-            {% for category in categories %} 
-                <option value="{{ category }}">{{ category }}</option>
-            {% endfor %}
-        </select>
-        <input type="submit" value="Filter">
-    </form>
-    {% if not listings %}
-        <p>No Listings Found</p>
-    {% else %}
-        {% for listing in listings %}
-            <div class="row">
-                <div class="col-3">
-                    <img src="{{ listing.imageURL }}" alt = "No image" width="300px" height="auto">
-                </div>
-                <div class="col-4">
-                    <a href="{% url 'listing' id=listing.id %}"><h2>{{ listing.title }}</h2></a>
-                    <h4><strong>Price:</strong> ${{ listing.price }}</h4>
-                </div>
+    <h2>{{ user }}'s Watchlist</h2>
+    {% for listing in listings %}
+        <div class="row">
+            <div class="col-3">
+                <img src="{{ listing.imageURL }}" alt = "No image" width="300px" height="auto">
             </div>
-        {% endfor %}
-    {% endif %}
+            <div class="col-4">
+                <a href="{% url 'listing' id=listing.id %}"><h2>{{ listing.title }}</h2></a>
+                <h4><strong>Price:</strong> ${{ listing.price }}</h4>
+            </div>
+        </div>
+        {% empty %}
+            <h4>You have nothing in your watchlist yet.</h4>
+    {% endfor %}
 {% endblock %}
